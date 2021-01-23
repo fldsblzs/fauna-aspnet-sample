@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaunaAspNet.API", "src\FaunaAspNet.API\FaunaAspNet.API.csproj", "{1753E53A-ECF3-43A8-AE8C-6855F04991F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaunaAspNet.AdminTool", "src\FaunaAspNet.AdminTool\FaunaAspNet.AdminTool.csproj", "{4A331E24-ED39-4B1F-ACBC-F57A784A9636}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1753E53A-ECF3-43A8-AE8C-6855F04991F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1753E53A-ECF3-43A8-AE8C-6855F04991F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1753E53A-ECF3-43A8-AE8C-6855F04991F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1753E53A-ECF3-43A8-AE8C-6855F04991F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A331E24-ED39-4B1F-ACBC-F57A784A9636}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A331E24-ED39-4B1F-ACBC-F57A784A9636}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A331E24-ED39-4B1F-ACBC-F57A784A9636}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A331E24-ED39-4B1F-ACBC-F57A784A9636}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
