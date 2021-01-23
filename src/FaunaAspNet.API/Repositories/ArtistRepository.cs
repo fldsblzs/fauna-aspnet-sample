@@ -47,9 +47,7 @@ namespace FaunaAspNet.API.Repositories
                 ? await _faunaClient.Query(
                     Create(
                         Collection(Collection),
-                        Obj("data", Encoder.Encode(artistFromUser))
-                    )
-                )
+                        Obj("data", Encoder.Encode(artistFromUser))))
                 : await _faunaClient.Query(
                     Replace(
                         Ref(Collection(Collection), id),
@@ -68,7 +66,7 @@ namespace FaunaAspNet.API.Repositories
             var artist = Decoder.Decode<Artist>(value.At("data"));
             var reference = value.At("ref").To<RefV>().Value;
             artist.Id = reference.Id;
-            
+
             return artist;
         }
     }

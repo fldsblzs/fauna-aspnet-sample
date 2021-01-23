@@ -4,7 +4,6 @@ using FaunaAspNet.API.Messages;
 using FaunaAspNet.API.Repositories;
 using FaunaAspNet.API.Validation;
 using FaunaDB.Client;
-using FaunaDB.Types;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
