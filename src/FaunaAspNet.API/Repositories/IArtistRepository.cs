@@ -1,5 +1,6 @@
 ﻿using FaunaAspNet.API.Messages;
 using FaunaAspNet.API.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FaunaAspNet.API.Repositories
@@ -10,6 +11,8 @@ namespace FaunaAspNet.API.Repositories
         
         Task<Artist> GetArtistByNameAsync(string name);
 
+        Task<IEnumerable<Artist>> GetArtistsAsync();
+        
         Task<Artist> CreateOrUpdateArtist(ArtistMessage artistMessage, string id = default);
         
         Task DeleteArtistAsync(string id);

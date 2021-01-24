@@ -3,6 +3,8 @@ using FaunaAspNet.API.Messages;
 using FaunaAspNet.API.Models;
 using FaunaDB.Client;
 using FaunaDB.Types;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using static FaunaDB.Query.Language;
 
@@ -37,6 +39,20 @@ namespace FaunaAspNet.API.Repositories
                     Match(Index(ArtistNameIndex), name)));
 
             return DecodeArtist(value);
+        }
+
+        // TODO: Implement pagination
+        public async Task<IEnumerable<Artist>> GetArtistsAsync()
+        {
+            var value = await _faunaClient.Query(
+                Map(Paginate(Documents(Collection(Collection))), Lambda(x => Get(x)))
+            );
+            
+            var arrayV = value.At("data").To<ArrayV>().Value;
+            var artists = new List<Artist>(arrayV.Length);
+            artists.AddRange(arrayV.Select(DecodeArtist));
+
+            return artists;
         }
 
         public async Task<Artist> CreateOrUpdateArtist(ArtistMessage artistMessage, string id = default)

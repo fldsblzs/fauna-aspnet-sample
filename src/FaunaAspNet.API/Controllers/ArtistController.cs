@@ -25,13 +25,21 @@ namespace FaunaAspNet.API.Controllers
         }
 
         [HttpGet("name/{artistName}")]
-        public async Task<IActionResult> GetArtists([FromRoute] string artistName)
+        public async Task<IActionResult> GetArtistByName([FromRoute] string artistName)
         {
-            var artists = await _artistRepository.GetArtistByNameAsync(artistName);
+            var artist = await _artistRepository.GetArtistByNameAsync(artistName);
 
-            return Ok(artists);
+            return Ok(artist);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetArtists()
+        {
+            var artists = await _artistRepository.GetArtistsAsync();
+            
+            return Ok(artists);
+        }
+        
         [HttpPost]
         public async Task<IActionResult> AddArtist(ArtistMessage artistMessage)
         {
