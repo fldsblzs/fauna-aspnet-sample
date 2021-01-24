@@ -7,5 +7,5 @@ services:
     ports:
       - "8000:80"
     environment:
-      - Fauna:Secret=fnAEAQfe6hACAaefQGWxIdeCxnHQ3ON29JG4-LGI
+      - Fauna:Secret=<SERVER_KEY>
 
