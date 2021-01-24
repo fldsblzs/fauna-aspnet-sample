@@ -31,7 +31,7 @@ namespace FaunaAspNet.API
             services
                 .AddControllers()
                 .AddFluentValidation();
-            
+
             services.AddTransient<IValidator<ArtistMessage>, ArtistMessageValidator>();
             services.AddAutoMapper(typeof(Startup));
             services.Configure<FaunaOptions>(Configuration.GetSection(FaunaOptions.Fauna));
@@ -39,10 +39,10 @@ namespace FaunaAspNet.API
             services.AddSingleton(sp =>
             {
                 var faunaSettings = sp.GetRequiredService<IOptionsMonitor<FaunaOptions>>().CurrentValue;
-                
+
                 return new FaunaClient(faunaSettings.Secret, faunaSettings.Endpoint);
             });
-            
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "FaunaAspNet.API", Version = "v1"});
@@ -56,10 +56,14 @@ namespace FaunaAspNet.API
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             app.UseSwagger();
-            app.UseSwaggerUI(c => 
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "FaunaAspNet.API v1"));
+            app.UseSwaggerUI(c =>
+                {
+                    c.RoutePrefix = "";
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "FaunaAspNet.API v1");
+                }
+            );
 
             app.UseHttpsRedirection();
             app.UseRouting();

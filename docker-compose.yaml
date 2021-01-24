@@ -1,0 +1,11 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  api:
+    build:
+      context: ./src/FaunaAspNet.API
+      dockerfile: ./Dockerfile
+    ports:
+      - "8000:80"
+    environment:
+      - Fauna:Secret=fnAEAQfe6hACAaefQGWxIdeCxnHQ3ON29JG4-LGI
+
