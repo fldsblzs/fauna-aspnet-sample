@@ -3,6 +3,7 @@ using FaunaAspNet.API.Messages;
 using FaunaAspNet.API.Models;
 using FaunaDB.Client;
 using FaunaDB.Types;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,17 +27,16 @@ namespace FaunaAspNet.API.Repositories
 
         public async Task<Artist> GetArtistAsync(string id)
         {
-            var value = await _faunaClient.Query(
-                Get(Ref(Collection(Collection), id)));
+            var value = await _faunaClient
+                .Query(Get(Ref(Collection(Collection), id)));
 
             return DecodeArtist(value);
         }
 
         public async Task<Artist> GetArtistByNameAsync(string name)
         {
-            var value = await _faunaClient.Query(
-                Get(
-                    Match(Index(ArtistNameIndex), name)));
+            var value = await _faunaClient
+                .Query(Get(Match(Index(ArtistNameIndex), name)));
 
             return DecodeArtist(value);
         }
@@ -44,10 +44,10 @@ namespace FaunaAspNet.API.Repositories
         // TODO: Implement pagination
         public async Task<IEnumerable<Artist>> GetArtistsAsync()
         {
-            var value = await _faunaClient.Query(
-                Map(Paginate(Documents(Collection(Collection))), Lambda(x => Get(x)))
-            );
-            
+            var value = await _faunaClient
+                .Query(Map(Paginate(Documents(Collection(Collection))), Lambda(x => Get(x)))
+                );
+
             var arrayV = value.At("data").To<ArrayV>().Value;
             var artists = new List<Artist>(arrayV.Length);
             artists.AddRange(arrayV.Select(DecodeArtist));
@@ -74,14 +74,21 @@ namespace FaunaAspNet.API.Repositories
 
         public async Task DeleteArtistAsync(string id)
         {
-            await _faunaClient.Query(Delete(Ref(Collection(Collection), id)));
+            await _faunaClient
+                .Query(Delete(Ref(Collection(Collection), id)));
         }
 
-        private Artist DecodeArtist(Value value)
+        private Artist DecodeArtist(Value payload)
         {
-            var artist = Decoder.Decode<Artist>(value.At("data"));
-            var reference = value.At("ref").To<RefV>().Value;
-            artist.Id = reference.Id;
+            Artist artist = default;
+
+            payload.At("data")
+                .To<Artist>()
+                .Match(d => artist = d, reason => throw new Exception(reason));
+
+            payload.At("ref")
+                .To<RefV>()
+                .Match(r => artist.Id = r.Value.Id, reason => throw new Exception(reason));
 
             return artist;
         }
